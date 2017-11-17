@@ -26,13 +26,13 @@ firebase.initializeApp({
 /* eslint-disable no-new */
 let app
 
-firebase.auth().onAuthStateChanged(user => {
+firebase.auth().onAuthStateChanged(auth => {
   if (!app) {
     app = new Vue({
       el: '#app',
       router,
       data: {
-        auth: user
+        auth: auth
       },
       template: '<App :auth="auth"/>',
       components: { App }

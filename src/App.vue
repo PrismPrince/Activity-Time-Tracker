@@ -10,13 +10,7 @@ import navbar from '@/components/_navbar'
 
 export default {
   name: 'app',
-  props: {
-    auth: {
-      type: Object,
-      default: null,
-      required: true
-    }
-  },
+  props: ['auth'],
   components: {
     navbar
   }

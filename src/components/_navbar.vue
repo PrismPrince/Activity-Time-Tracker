@@ -52,20 +52,14 @@ import firebase from 'firebase'
 
 export default {
   name: 'navbar',
-  props: {
-    auth: {
-      type: Object,
-      default: null,
-      required: true
-    }
-  },
+  props: ['auth'],
   methods: {
     toggleLeftSideNav () {
       this.$refs.leftSideNav.toggle()
     },
     logout () {
       firebase.auth().signOut().then(() => {
-        // this.$router.replace('login')
+        this.$router.replace('/')
       })
     }
   }

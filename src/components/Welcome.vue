@@ -4,6 +4,8 @@
       <md-layout class="form" md-flex="80">
         <md-tabs class="md-whiteframe-1dp">
           <md-tab md-label="Log in">
+            <md-whiteframe class="md-whiteframe-1pd" v-if="login.error.status">{{ login.error.message }}</md-whiteframe>
+
             <md-input-container :class="{'md-input-invalid': login.email.error.status}" md-clearable>
               <label>E-mail Address</label>
               <md-input v-model="login.email.value"></md-input>
@@ -20,6 +22,8 @@
           </md-tab>
 
           <md-tab md-label="Register">
+            <md-whiteframe class="md-whiteframe-1pd" v-if="register.error.status">{{ register.error.message }}</md-whiteframe>
+
             <md-input-container :class="{'md-input-invalid': register.email.error.status}" md-clearable>
               <label>E-mail Address</label>
               <md-input v-model="register.email.value"></md-input>
@@ -192,20 +196,19 @@ export default {
     loginUser () {
       if (this.checkLoginStatus) {
         firebase.auth().signInWithEmailAndPassword(this.login.email.value, this.login.password.value)
-          .then(user => {
-            console.log(user)
-            // this.$router.replace('home')
-          }, err => console.log(err))
-      } else {
-
+          .then(user => this.$router.replace('/home'), err => {
+            this.login.error.status = true
+            this.login.error.message = err.message
+          })
       }
     },
     registerUser () {
       if (this.checkRegisterStatus) {
         firebase.auth().createUserWithEmailAndPassword(this.register.email.value, this.register.password.value)
-          .then(user => {
-            // this.$router.replace('home')
-          }, err => alert('Error: ' + err.message))
+          .then(user => this.$router.replace('/home'), err => {
+            this.register.error.status = true
+            this.register.error.message = err.message
+          })
       }
     }
   }

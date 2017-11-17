@@ -1,23 +1,24 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <navbar :auth="auth"/>
     <router-view/>
   </div>
 </template>
 
 <script>
+import navbar from '@/components/_navbar'
+
 export default {
-  name: 'app'
+  name: 'app',
+  props: {
+    auth: {
+      type: Object,
+      default: null,
+      required: true
+    }
+  },
+  components: {
+    navbar
+  }
 }
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

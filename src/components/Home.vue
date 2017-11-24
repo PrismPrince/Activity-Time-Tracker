@@ -1,14 +1,19 @@
 <template>
   <div class="home">
+    <navbar :auth="auth"/>
     welcome
   </div>
 </template>
 
 <script>
+// import firebase from 'firebase'
+import navbar from '@/components/_navbar'
+
 export default {
   name: 'home',
   data () {
     return {
+      auth: true,
       login: {
         email: {
           value: '',
@@ -62,6 +67,9 @@ export default {
         }
       }
     }
+  },
+  components: {
+    navbar
   }
 }
 </script>

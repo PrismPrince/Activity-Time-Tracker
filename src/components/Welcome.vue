@@ -1,10 +1,42 @@
 <template>
   <div class="welcome">
+    <navbar/>
     <md-layout md-align="center">
-      <md-layout class="form" md-flex="80">
+      <md-layout class="form" md-flex="40">
         <md-tabs class="md-whiteframe-1dp">
-          <md-tab md-label="Log in">
-            <md-whiteframe class="md-whiteframe-1pd" v-if="login.error.status">{{ login.error.message }}</md-whiteframe>
+          <md-tab md-label="Google Login">
+            <md-card class="md-accent note-block-error" v-if="google.error.status">
+              <md-button class="md-icon-button close-button" @click="google.error.status = false">
+                <md-icon>close</md-icon>
+              </md-button>
+              <md-card-content>{{ google.error.message }}</md-card-content>
+            </md-card>
+
+            <p>
+              Log in with your Google account with just one click!
+              <md-button class="md-raised register-google" @click="googleLogin">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 48 48" class="abcRioButtonSvg">
+                  <g>
+                    <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
+                    <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path>
+                    <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path>
+                    <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path>
+                    <path fill="none" d="M0 0h48v48H0z"></path>
+                  </g>
+                </svg> Log in
+              </md-button>
+            </p>
+          </md-tab>
+
+          <md-tab md-label="Login">
+            <md-card class="md-accent note-block-error" v-if="login.error.status">
+              <md-button class="md-icon-button close-button" @click="login.error.status = false">
+                <md-icon>close</md-icon>
+              </md-button>
+              <md-card-content>
+                {{ login.error.message }}
+              </md-card-content>
+            </md-card>
 
             <md-input-container :class="{'md-input-invalid': login.email.error.status}" md-clearable>
               <label>E-mail Address</label>
@@ -18,11 +50,16 @@
               <span v-if="login.password.error.status" class="md-error">{{ login.password.error.message }}</span>
             </md-input-container>
 
-            <md-button class="md-primary md-raised" @click="loginUser" :disabled="!checkLoginStatus">Login</md-button>
+            <md-button class="md-primary md-raised" @click="loginUser" :disabled="!checkLoginStatus">Log in</md-button>
           </md-tab>
 
           <md-tab md-label="Register">
-            <md-whiteframe class="md-whiteframe-1pd" v-if="register.error.status">{{ register.error.message }}</md-whiteframe>
+            <md-card class="md-accent note-block-error" v-if="register.error.status">
+              <md-button class="md-icon-button close-button" @click="register.error.status = false">
+                <md-icon>close</md-icon>
+              </md-button>
+              <md-card-content>{{ register.error.message }}</md-card-content>
+            </md-card>
 
             <md-input-container :class="{'md-input-invalid': register.email.error.status}" md-clearable>
               <label>E-mail Address</label>
@@ -52,11 +89,19 @@
 
 <script>
 import firebase from 'firebase'
+import navbar from '@/components/_navbar'
 
 export default {
   name: 'Welcome',
   data () {
     return {
+      auth: false,
+      google: {
+        error: {
+          status: false,
+          message: ''
+        }
+      },
       login: {
         email: {
           value: '',
@@ -110,6 +155,9 @@ export default {
         }
       }
     }
+  },
+  components: {
+    navbar
   },
   computed: {
     checkLoginStatus () {
@@ -196,7 +244,9 @@ export default {
     loginUser () {
       if (this.checkLoginStatus) {
         firebase.auth().signInWithEmailAndPassword(this.login.email.value, this.login.password.value)
-          .then(user => this.$router.replace('/home'), err => {
+          .then(user => {
+            this.$router.replace('/home')
+          }, err => {
             this.login.error.status = true
             this.login.error.message = err.message
           })
@@ -205,14 +255,54 @@ export default {
     registerUser () {
       if (this.checkRegisterStatus) {
         firebase.auth().createUserWithEmailAndPassword(this.register.email.value, this.register.password.value)
-          .then(user => this.$router.replace('/home'), err => {
+          .then(user => {
+            this.$router.replace('/home')
+          }, err => {
             this.register.error.status = true
             this.register.error.message = err.message
           })
       }
+    },
+    googleLogin () {
+      firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(user => {
+        this.$router.replace('/home')
+      }).catch(err => {
+        this.google.error.status = true
+        this.google.error.message = err.message
+      })
     }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+  .close-button {
+    position: absolute;
+    right: 0;
+  }
+
+  .note-block-error {
+    margin-bottom: 20px;
+  }
+
+  .note-block-error .md-card-content {
+    padding-right: 50px;
+  }
+
+  .register-google {
+    margin-top: -10px;
+  }
+
+  .divider-or {
+    width: 100%;
+    height: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, .12);
+    text-align: center;
+  }
+
+  .divider-or > span {
+    padding: 0 10px;
+    background-color: #fff;
+  }
+</style>

@@ -52,7 +52,12 @@ import firebase from 'firebase'
 
 export default {
   name: 'navbar',
-  props: ['auth'],
+  props: {
+    auth: {
+      type: Boolean,
+      default: false
+    }
+  },
   methods: {
     toggleLeftSideNav () {
       this.$refs.leftSideNav.toggle()

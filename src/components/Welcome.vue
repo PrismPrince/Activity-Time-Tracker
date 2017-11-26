@@ -2,7 +2,7 @@
   <div class="welcome">
     <navbar/>
     <md-layout md-align="center">
-      <md-layout class="form" md-flex="40">
+      <md-layout md-flex="40">
         <md-tabs class="md-whiteframe-1dp">
           <md-tab md-label="Google Login">
             <md-card class="md-accent note-block-error" v-if="google.error.status">
@@ -88,14 +88,16 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+import firebase from './firebaseInit'
 import navbar from '@/components/_navbar'
+
+var db = firebase.database()
 
 export default {
   name: 'Welcome',
   data () {
     return {
-      auth: false,
+      auth: firebase.auth().currentUser,
       google: {
         error: {
           status: false,
@@ -244,7 +246,7 @@ export default {
     loginUser () {
       if (this.checkLoginStatus) {
         firebase.auth().signInWithEmailAndPassword(this.login.email.value, this.login.password.value)
-          .then(user => {
+          .then(u => {
             this.$router.replace('/home')
           }, err => {
             this.login.error.status = true
@@ -255,7 +257,16 @@ export default {
     registerUser () {
       if (this.checkRegisterStatus) {
         firebase.auth().createUserWithEmailAndPassword(this.register.email.value, this.register.password.value)
-          .then(user => {
+          .then(u => {
+            db.ref('users/' + u.uid).set({
+              displayName: u.providerData[0].displayName,
+              email: u.providerData[0].email,
+              phoneNumber: u.providerData[0].phoneNumber,
+              photoURL: u.providerData[0].photoURL,
+              providerId: u.providerData[0].providerId,
+              uid: u.uid
+            })
+
             this.$router.replace('/home')
           }, err => {
             this.register.error.status = true
@@ -264,7 +275,18 @@ export default {
       }
     },
     googleLogin () {
-      firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(user => {
+      firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(u => {
+        if (u.additionalUserInfo.isNewUser) {
+          db.ref('users/' + u.user.uid).set({
+            displayName: u.user.providerData[0].displayName,
+            email: u.user.providerData[0].email,
+            phoneNumber: u.user.providerData[0].phoneNumber,
+            photoURL: u.user.providerData[0].photoURL,
+            providerId: u.user.providerData[0].providerId,
+            uid: u.user.uid
+          })
+        }
+
         this.$router.replace('/home')
       }).catch(err => {
         this.google.error.status = true

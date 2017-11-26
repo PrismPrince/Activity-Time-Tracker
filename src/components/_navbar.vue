@@ -13,7 +13,8 @@
     <md-sidenav class="md-left" ref="leftSideNav">
       <md-toolbar class="md-large">
         <div class="md-toolbar-container">
-          <h3 class="md-title">Welcome to Your Vue.js App</h3>
+          <md-icon class="md-size-2x md-primary user-photo" v-if="auth" :md-src="auth.providerData[0].photoURL">person</md-icon>
+          <h3 class="md-title">{{ auth.providerData[0].displayName ? auth.providerData[0].displayName : auth.providerData[0].email }}</h3>
         </div>
       </md-toolbar>
 
@@ -54,8 +55,7 @@ export default {
   name: 'navbar',
   props: {
     auth: {
-      type: Boolean,
-      default: false
+      default: null
     }
   },
   methods: {
@@ -67,6 +67,11 @@ export default {
         this.$router.replace('/')
       })
     }
+  },
+  filters: {
+    initials (name) {
+      return name.replace(/[^a-zA-Z- ]/g, '').match(/\b\w/g).join('').toUpperCase()
+    }
   }
 }
 </script>
@@ -74,5 +79,12 @@ export default {
 <style scoped>
   .navbar {
     margin-bottom: 20px;
+  }
+
+  .user-photo {
+    margin-right: 5px;
+    margin-left: 0;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, .8);
   }
 </style>

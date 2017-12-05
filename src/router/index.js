@@ -4,6 +4,7 @@ import firebase from 'firebase'
 
 import Welcome from '@/components/Welcome'
 import Home from '@/components/Home'
+import Stopwatch from '@/components/Stopwatch'
 
 Vue.use(Router)
 
@@ -22,6 +23,14 @@ let router = new Router({
       path: '/home',
       name: 'home',
       component: Home,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/stopwatch',
+      name: 'stopwatch',
+      component: Stopwatch,
       meta: {
         requiresAuth: true
       }

@@ -7,13 +7,14 @@
 
       <h2 class="md-title" style="flex: 1">Activity Time Tracker</h2>
 
+      <md-button v-if="auth" @click="$router.replace('/home')">Home</md-button>
       <md-button v-if="auth" @click="logout">Log Out</md-button>
     </md-toolbar>
 
     <md-sidenav class="md-left" ref="leftSideNav">
-      <md-toolbar class="md-large">
+      <md-toolbar class="md-large" v-if="auth">
         <div class="md-toolbar-container">
-          <md-icon class="md-size-2x md-primary user-photo" v-if="auth" :md-src="auth.providerData[0].photoURL">person</md-icon>
+          <md-icon class="md-size-2x md-primary user-photo" :md-src="auth.providerData[0].photoURL">person</md-icon>
           <h3 class="md-title">{{ auth.providerData[0].displayName ? auth.providerData[0].displayName : auth.providerData[0].email }}</h3>
         </div>
       </md-toolbar>

@@ -1,71 +1,30 @@
 <template>
   <div class="home">
     <navbar :auth="auth"/>
-    welcome
+    <md-layout md-align="center">
+      <md-layout md-flex="70">
+        <md-whiteframe class="menu md-whiteframe-1dp">
+          <md-toolbar>
+            <h2 class="md-title">Menu</h2>
+          </md-toolbar>
+          <md-list>
+            <md-list-item class="md-inset" @click.prevent="$router.replace('/stopwatch')">Task Timer</md-list-item>
+          </md-list>
+        </md-whiteframe>
+      </md-layout>
+    </md-layout>
   </div>
 </template>
 
 <script>
-// import firebase from 'firebase'
+import firebase from './firebaseInit'
 import navbar from '@/components/_navbar'
 
 export default {
   name: 'home',
   data () {
     return {
-      auth: true,
-      login: {
-        email: {
-          value: '',
-          dirty: false,
-          error: {
-            status: false,
-            message: ''
-          }
-        },
-        password: {
-          value: '',
-          dirty: false,
-          error: {
-            status: false,
-            message: ''
-          }
-        },
-        error: {
-          status: false,
-          message: ''
-        }
-      },
-      register: {
-        email: {
-          value: '',
-          dirty: false,
-          error: {
-            status: false,
-            message: ''
-          }
-        },
-        password: {
-          value: '',
-          dirty: false,
-          error: {
-            status: false,
-            message: ''
-          }
-        },
-        confirmPassword: {
-          value: '',
-          dirty: false,
-          error: {
-            status: false,
-            message: ''
-          }
-        },
-        error: {
-          status: false,
-          message: ''
-        }
-      }
+      auth: firebase.auth().currentUser
     }
   },
   components: {
@@ -75,3 +34,8 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+  .menu {
+    width: 100%;
+  }
+</style>

@@ -1,7 +1,7 @@
 {
-  "name": "activity-time-tracker",
+  "name": "pa-tools",
   "version": "1.0.0",
-  "description": "A Vue.js project",
+  "description": "PA Tools",
   "author": "Dave Dane Pacilan <davedanepacilan3p@mail.com>",
   "private": true,
   "scripts": {

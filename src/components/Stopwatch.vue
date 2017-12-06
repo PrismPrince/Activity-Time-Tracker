@@ -21,8 +21,8 @@
               </md-table-row>
             </md-table-header>
 
-            <md-table-body v-if="tasks.length">
-              <md-table-row :key="key" v-for="(task, key) in tasks">
+            <transition-group v-if="tasks.length" tag="md-table-body" name="fade-task" mode="in-out">
+              <md-table-row class="fade-task-item" :key="task['.key']" v-for="(task, key) in tasks">
                 <md-table-cell>{{ task.name }}</md-table-cell>
                 <md-table-cell>
                   <span>
@@ -31,21 +31,12 @@
                   </span>
                 </md-table-cell>
                 <md-table-cell>
-                  <md-button class="md-icon-button md-raised md-primary" @click.prevent="startTimer(task['.key'])" :disabled="!running(task['.key'])">
-                    <md-icon>start</md-icon>
-                    <md-tooltip md-direction="bottom">Start</md-tooltip>
-                  </md-button>
-                  <md-button class="md-icon-button md-raised md-accent" @click.prevent="stopTimer(task['.key'])" :disabled="running(task['.key'])">
-                    <md-icon>stop</md-icon>
-                    <md-tooltip md-direction="bottom">Stop</md-tooltip>
-                  </md-button>
-                  <md-button class="md-icon-button md-raised md-warn" @click.prevent="removeTask(task['.key'])" :disabled="!running(task['.key'])">
-                    <md-icon>delete</md-icon>
-                    <md-tooltip md-direction="bottom">Remove</md-tooltip>
-                  </md-button>
+                  <md-button class="md-raised btn-action md-accent" v-if="!running(task['.key'])" @click.prevent="stopTimer(task['.key'])">Stop</md-button>
+                  <md-button class="md-raised btn-action md-primary" v-if="running(task['.key'])" @click.prevent="startTimer(task['.key'])">Start</md-button>
+                  <md-button class="md-raised btn-action md-warn" v-if="running(task['.key'])" @click.prevent="removeTask(task['.key'])">Remove</md-button>
                 </md-table-cell>
               </md-table-row>
-            </md-table-body>
+            </transition-group>
           </md-table>
         </md-table-card>
       </md-layout>
@@ -177,6 +168,15 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .fade-task-item {
+    transition: all .5s;
+  }
+
+  .fade-task-enter-active, .fade-task-leave-active {
+    opacity: 0;
+    transform: ease;
+  }
+
   .tasks {
     width: 100%;
   }
@@ -186,7 +186,12 @@ export default {
   }
 
   .task-table-head-actions {
-    width: 180px
-    max-width: 180px;
+    width: 230px;
+    max-width: 230px;
+  }
+
+  .btn-action {
+    width: auto !important;
+    margin: 0;
   }
 </style>

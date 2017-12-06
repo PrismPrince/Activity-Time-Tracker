@@ -5,7 +5,7 @@
         <md-icon>menu</md-icon>
       </md-button>
 
-      <h2 class="md-title" style="flex: 1">Activity Time Tracker</h2>
+      <h2 class="md-title" style="flex: 1">PA Tools</h2>
 
       <md-button v-if="auth" @click="$router.replace('/home')">Home</md-button>
       <md-button v-if="auth" @click="logout">Log Out</md-button>

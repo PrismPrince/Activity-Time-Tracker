@@ -16,8 +16,8 @@
             <md-table-header>
               <md-table-row>
                 <md-table-head>Task</md-table-head>
-                <md-table-head>Timer</md-table-head>
-                <md-table-head>Actions</md-table-head>
+                <md-table-head class="task-table-head-timer">Timer</md-table-head>
+                <md-table-head class="task-table-head-actions">Actions</md-table-head>
               </md-table-row>
             </md-table-header>
 
@@ -179,5 +179,14 @@ export default {
 <style scoped>
   .tasks {
     width: 100%;
+  }
+
+  .task-table-head-timer {
+    min-width: 130px;
+  }
+
+  .task-table-head-actions {
+    width: 180px
+    max-width: 180px;
   }
 </style>

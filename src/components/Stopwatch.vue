@@ -105,7 +105,7 @@ export default {
 
         this.timers[t].timer = setInterval(() => {
           this.$firebaseRefs.firebaseTasks.child(key + '/ticks').transaction((ticks) => {
-            return ticks + 1
+            return ++ticks
           })
         }, 10)
 

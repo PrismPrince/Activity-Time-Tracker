@@ -1,3 +1,9 @@
+/*!
+ * PA Tools v0.0.0
+ * (c) 2017 Dave Dane Pacilan
+ * Released under the MIT License.
+ */
+
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'

@@ -6,7 +6,7 @@
         <md-tabs class="md-whiteframe-1dp">
           <md-tab md-label="Google Login">
             <md-card class="md-accent note-block-error" v-if="google.error.status">
-              <md-button class="md-icon-button close-button" @click="google.error.status = false">
+              <md-button class="md-icon-button btn-close" @click="google.error.status = false">
                 <md-icon>close</md-icon>
               </md-button>
               <md-card-content>{{ google.error.message }}</md-card-content>
@@ -30,7 +30,7 @@
 
           <md-tab md-label="Login">
             <md-card class="md-accent note-block-error" v-if="login.error.status">
-              <md-button class="md-icon-button close-button" @click="login.error.status = false">
+              <md-button class="md-icon-button btn-close" @click="login.error.status = false">
                 <md-icon>close</md-icon>
               </md-button>
               <md-card-content>
@@ -55,7 +55,7 @@
 
           <md-tab md-label="Register">
             <md-card class="md-accent note-block-error" v-if="register.error.status">
-              <md-button class="md-icon-button close-button" @click="register.error.status = false">
+              <md-button class="md-icon-button btn-close" @click="register.error.status = false">
                 <md-icon>close</md-icon>
               </md-button>
               <md-card-content>{{ register.error.message }}</md-card-content>
@@ -299,8 +299,8 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-  .close-button {
+<style lang="scss" scoped>
+  .btn-close {
     position: absolute;
     right: 0;
   }
@@ -322,10 +322,10 @@ export default {
     height: 10px;
     border-bottom: 1px solid rgba(0, 0, 0, .12);
     text-align: center;
-  }
 
-  .divider-or > span {
-    padding: 0 10px;
-    background-color: #fff;
+    > span {
+      padding: 0 10px;
+      background-color: #fff;
+    }
   }
 </style>

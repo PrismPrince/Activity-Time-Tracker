@@ -160,7 +160,7 @@ export default {
       return hr + ':' + min + ':' + sec + ' ' + ms
     },
     toMinutes (time) {
-      return Math.round((Math.round(time * 0.01) / 60) % 60) === 1 ? Math.round((Math.round(time * 0.01) / 60) % 60) + ' min' : Math.round((Math.round(time * 0.01) / 60) % 60) + ' mins'
+      return Math.round((Math.round(time * 0.01) / 60)) === 1 ? Math.round((Math.round(time * 0.01) / 60)) + ' min' : Math.round((Math.round(time * 0.01) / 60)) + ' mins'
     }
   }
 }

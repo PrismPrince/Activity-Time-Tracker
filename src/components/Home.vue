@@ -9,6 +9,7 @@
           </md-toolbar>
           <md-list>
             <md-list-item class="md-inset" @click.prevent="$router.replace('/stopwatch')">Task Timer</md-list-item>
+            <md-list-item class="md-inset" @click.prevent="$router.replace('/image-link-generator')">Image Link Generator</md-list-item>
           </md-list>
         </md-whiteframe>
       </md-layout>

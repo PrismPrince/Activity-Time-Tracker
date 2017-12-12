@@ -5,6 +5,7 @@ import firebase from 'firebase'
 import Welcome from '@/components/Welcome'
 import Home from '@/components/Home'
 import Stopwatch from '@/components/Stopwatch'
+import ImageLinkGenerator from '@/components/Image-Link-Generator'
 
 Vue.use(Router)
 
@@ -31,6 +32,14 @@ let router = new Router({
       path: '/stopwatch',
       name: 'stopwatch',
       component: Stopwatch,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/image-link-generator',
+      name: 'image-link-generator',
+      component: ImageLinkGenerator,
       meta: {
         requiresAuth: true
       }

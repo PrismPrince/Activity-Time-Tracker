@@ -1,5 +1,5 @@
 <template>
-  <div class="stopwatch">
+  <div class="task-timer">
     <navbar :auth="auth"/>
     <md-layout md-align="center">
       <md-layout md-flex="70">
@@ -51,7 +51,7 @@ import firebase from './firebaseInit'
 var db = firebase.database()
 
 export default {
-  name: 'stopwatch',
+  name: 'task-timer',
   components: {
     navbar
   },

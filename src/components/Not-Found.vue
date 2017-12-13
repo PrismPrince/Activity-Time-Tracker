@@ -4,12 +4,7 @@
     <md-layout md-align="center">
       <md-layout md-flex="70">
         <md-whiteframe class="menu md-whiteframe-1dp">
-          <md-toolbar>
-            <h2 class="md-title">Menu</h2>
-          </md-toolbar>
-          <md-list>
-            <md-list-item class="md-inset" @click.prevent="$router.replace('/task-timer')">Task Timer</md-list-item>
-          </md-list>
+          Not Found <md-button class="md-primary" @click="$router.replace('/')">Go Back</md-button>
         </md-whiteframe>
       </md-layout>
     </md-layout>
@@ -35,7 +30,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-  .menu {
-    width: 100%;
-  }
 </style>

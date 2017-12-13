@@ -3,8 +3,9 @@ import Router from 'vue-router'
 import firebase from 'firebase'
 
 import Welcome from '@/components/Welcome'
+import NotFound from '@/components/Not-Found'
 import Home from '@/components/Home'
-import Stopwatch from '@/components/Stopwatch'
+import TaskTimer from '@/components/Task-Timer'
 
 Vue.use(Router)
 
@@ -12,12 +13,17 @@ let router = new Router({
   routes: [
     {
       path: '*',
-      redirect: '/'
+      redirect: '/404'
     },
     {
       path: '/',
       name: 'welcome',
       component: Welcome
+    },
+    {
+      path: '/404',
+      name: '404',
+      component: NotFound
     },
     {
       path: '/home',
@@ -28,9 +34,9 @@ let router = new Router({
       }
     },
     {
-      path: '/stopwatch',
-      name: 'stopwatch',
-      component: Stopwatch,
+      path: '/task-timer',
+      name: 'task-timer',
+      component: TaskTimer,
       meta: {
         requiresAuth: true
       }

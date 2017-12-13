@@ -6,6 +6,7 @@ import Welcome from '@/components/Welcome'
 import NotFound from '@/components/Not-Found'
 import Home from '@/components/Home'
 import TaskTimer from '@/components/Task-Timer'
+import ImageLinkGenerator from '@/components/Image-Link-Generator'
 
 Vue.use(Router)
 
@@ -37,6 +38,14 @@ let router = new Router({
       path: '/task-timer',
       name: 'task-timer',
       component: TaskTimer,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/image-link-generator',
+      name: 'image-link-generator',
+      component: ImageLinkGenerator,
       meta: {
         requiresAuth: true
       }

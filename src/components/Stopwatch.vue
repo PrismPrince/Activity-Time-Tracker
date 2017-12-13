@@ -107,7 +107,7 @@ export default {
           this.$firebaseRefs.firebaseTasks.child(key + '/ticks').transaction((ticks) => {
             return ++ticks
           })
-        }, 10)
+        }, 100)
 
         this.$firebaseRefs.firebaseTasks.child(key + '/history').push({
           action: 'start',
@@ -149,18 +149,18 @@ export default {
       let sec
       let ms
 
-      hr = Math.floor(Math.round(time * 0.01) / 3600) < 10 ? '0' + Math.floor(Math.round(time * 0.01) / 3600) : Math.floor(Math.round(time * 0.01) / 3600)
+      hr = Math.floor(Math.round(time * 0.1) / 3600) < 10 ? '0' + Math.floor(Math.round(time * 0.1) / 3600) : Math.floor(Math.round(time * 0.1) / 3600)
 
-      min = Math.floor((Math.round(time * 0.01) / 60) % 60) < 10 ? '0' + Math.floor((Math.round(time * 0.01) / 60) % 60) : Math.floor((Math.round(time * 0.01) / 60) % 60)
+      min = Math.floor((Math.round(time * 0.1) / 60) % 60) < 10 ? '0' + Math.floor((Math.round(time * 0.1) / 60) % 60) : Math.floor((Math.round(time * 0.1) / 60) % 60)
 
-      sec = Math.round(time * 0.01) % 60 < 10 ? '0' + Math.round(time * 0.01) % 60 : Math.round(time * 0.01) % 60
+      sec = Math.round(time * 0.1) % 60 < 10 ? '0' + Math.round(time * 0.1) % 60 : Math.round(time * 0.1) % 60
 
-      ms = time % 100 < 10 ? '0' + time % 100 : time % 100
+      ms = time % 10
 
       return hr + ':' + min + ':' + sec + ' ' + ms
     },
     toMinutes (time) {
-      return Math.round((Math.round(time * 0.01) / 60)) === 1 ? Math.round((Math.round(time * 0.01) / 60)) + ' min' : Math.round((Math.round(time * 0.01) / 60)) + ' mins'
+      return Math.round((Math.round(time * 0.1) / 60)) === 1 ? Math.round((Math.round(time * 0.1) / 60)) + ' min' : Math.round((Math.round(time * 0.1) / 60)) + ' mins'
     }
   }
 }

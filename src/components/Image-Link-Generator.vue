@@ -95,7 +95,7 @@
         </md-layout>
         <md-layout md-flex="100" md-gutter="8">
           <md-layout class="img-container" md-flex="10" :key="key" v-for="(image, key) of filter.images">
-            <a href="https://cdn3.minted.com/files/mintedProductsImages/MIN/HSM/7HM/MIN-7HM-HSM-007B_A_PD.jpg" target="_blank">
+            <a :href="image.link" target="_blank">
               <md-card md-with-hover>
                 <md-card-media>
                   <md-image :md-src="image.link" />

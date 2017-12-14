@@ -21,14 +21,10 @@
           <md-layout md-flex="100">
             <h4 class="label">Colorways</h4>
             <md-layout md-flex="100">
-              <md-radio class="md-primary" name="colorway" md-value="A" v-model="colorway">A</md-radio>
-              <md-radio class="md-primary" name="colorway" md-value="B" v-model="colorway">B</md-radio>
-              <md-radio class="md-primary" name="colorway" md-value="C" v-model="colorway">C</md-radio>
-              <md-radio class="md-primary" name="colorway" md-value="D" v-model="colorway">D</md-radio>
-              <md-radio class="md-primary" name="colorway" md-value="E" v-model="colorway">E</md-radio>
-              <md-radio class="md-primary" name="colorway" md-value="F" v-model="colorway">F</md-radio>
-              <md-radio class="md-primary" name="colorway" md-value="G" v-model="colorway">G</md-radio>
-              <md-radio class="md-primary" name="colorway" md-value="H" v-model="colorway">H</md-radio>
+              <span>
+                <md-rating-bar class="md-primary" :md-max-rating="8" :md-icon-size="2" md-empty-icon="sentiment_neutral" md-full-icon="sentiment_very_satisfied" v-model="colorwayNum" @hover="display_colorway" />
+                <md-tooltip md-direction="right">{{ colorwayHover }}</md-tooltip>
+              </span>
             </md-layout>
           </md-layout>
 
@@ -133,7 +129,8 @@ export default {
     return {
       auth: firebase.auth().currentUser,
       sku: '',
-      colorway: '',
+      colorwayNum: 0,
+      colorwayHover: 'Select Colorway',
       greetings: [],
       layouts: [],
       formats: [],
@@ -160,6 +157,19 @@ export default {
     },
     prodkind () {
       return this.normalize_sku.split('-')[2]
+    },
+    colorway () {
+      switch (this.colorwayNum) {
+        case 0: return ''
+        case 1: return 'A'
+        case 2: return 'B'
+        case 3: return 'C'
+        case 4: return 'D'
+        case 5: return 'E'
+        case 6: return 'F'
+        case 7: return 'G'
+        case 8: return 'H'
+      }
     },
     colorways () {
       var colorways = []
@@ -195,11 +205,11 @@ export default {
     },
     clear () {
       this.sku = ''
-      this.colorway = ''
+      this.colorwayNum = 0
       this.greetings = []
       this.layouts = []
       this.formats = []
-      this.prepend_parameter = false
+      this.prepend_parameter = true
       this.links = {
         string: '',
         array: []
@@ -233,6 +243,35 @@ export default {
         case 'CHRISTMAS': return 'Christmas'
         case 'NEWYEAR': return 'New Year'
         case 'RELIGIOUS': return 'Religious'
+      }
+    },
+    display_colorway (num) {
+      switch (num) {
+        case 1:
+          this.colorwayHover = 'Colorway A'
+          break
+        case 2:
+          this.colorwayHover = 'Colorway B'
+          break
+        case 3:
+          this.colorwayHover = 'Colorway C'
+          break
+        case 4:
+          this.colorwayHover = 'Colorway D'
+          break
+        case 5:
+          this.colorwayHover = 'Colorway E'
+          break
+        case 6:
+          this.colorwayHover = 'Colorway F'
+          break
+        case 7:
+          this.colorwayHover = 'Colorway G'
+          break
+        case 8:
+          this.colorwayHover = 'Colorway H'
+          break
+        default: this.colorwayHover = 'Select Colorway'
       }
     },
     filter_images () {
